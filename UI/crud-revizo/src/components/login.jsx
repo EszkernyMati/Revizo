@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import { useNavigate } from "react-router-dom";
-import '../styles/LoginPanel.css'
+import '../styles/index.css'
 
 function LoginPanel() {
     const [login, setLogin] = useState('');
@@ -17,7 +17,7 @@ function LoginPanel() {
 
         
         if (login === "admin" && password === "test") {
-            navigate("/groups");
+            navigate("/");
         } else {
             setError('Niepoprawny login lub hasło');
         }
