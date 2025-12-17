@@ -1,18 +1,18 @@
 import React from "react";
-import RegisterPanel from "../components/register";
+import ControlPanel from "../components/controlPanel";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import LoadingScreen from "../components/loading-screen";
 
-function RegisterPage(){
+function ControlPage(){
     return(
         <>
         <LoadingScreen/>
         <Header/>
-        <RegisterPanel/>
+        <ControlPanel/>
         <Footer/>
         </>
 
     );
 }
-export default RegisterPage;
+export default ControlPage;

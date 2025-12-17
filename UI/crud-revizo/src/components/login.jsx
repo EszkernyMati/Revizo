@@ -17,7 +17,7 @@ function LoginPanel() {
 
         
         if (login === "admin" && password === "test") {
-            navigate("/");
+            navigate("/control");
         } else {
             setError('Niepoprawny login lub hasło');
         }
@@ -32,7 +32,7 @@ function LoginPanel() {
             <div className="glass login-container">
                 <div className="brand-header">
                     <h1 className="revizo-logo">REVIZO</h1>
-                    <p className="subtitle">System Zarządzania</p>
+                    <p className="subtitle">Logowanie</p>
                 </div>
                 
                 <h2>Zaloguj się</h2>
@@ -88,5 +88,4 @@ function LoginPanel() {
         </div>
     );
 }
-
 export default LoginPanel;

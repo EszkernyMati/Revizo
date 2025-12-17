@@ -16,25 +16,21 @@ function RegisterPanel() {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         setError('');
-
         if (password !== confirmPassword) {
             setError('Hasła nie są identyczne!');
             return;
         }
-
         navigate("/login");
     };
-
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
     return (
         <div className="login-wrapper">
             <div className="glass login-container">
                 <div className="brand-header">
                     <h1 className="revizo-logo">REVIZO</h1>
-                    <p className="subtitle">System Zarządzania</p>
+                    <p className="subtitle">Rejestracja</p>
                 </div>
                 
                 <h2>Załóż konto</h2>

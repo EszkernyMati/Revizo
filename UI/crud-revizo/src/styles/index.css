@@ -68,29 +68,30 @@ footer {
   box-shadow: var(--shadow-footer);
 }
 
-.login-wrapper {
+.login-wrapper, .control-panel-wrapper {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 110px 20px 100px 20px; 
+  padding: 110px 20px;
   box-sizing: border-box;
 }
 
-.glass {
+.glass, .service-card {
   background-color: var(--color-white);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 24px;
-  padding: 60px; 
-  max-width: 800px;
-  min-width: 500px;
+  border-radius: 28px;
+  padding: 50px;
   width: 100%;
   box-shadow: var(--shadow-strong);
   position: relative;
   box-sizing: border-box;
 }
 
-.brand-header {
+.glass { max-width: 800px; min-width: 500px; }
+.service-card { max-width: 850px; }
+
+.brand-header, .section-title {
   text-align: center;
   margin-bottom: 40px;
 }
@@ -111,26 +112,28 @@ footer {
   letter-spacing: 2px;
 }
 
-.glass h2 {
-  font-size: 2rem;
-  margin: 0 0 10px;
+.section-title h2 {
+  font-size: 1.8rem;
   color: var(--color-text-dark);
-  text-align: center;
+  margin: 0 0 8px;
+  font-weight: 800;
 }
 
-.hr-accent {
-  border: none;
-  height: 1px;
-  background: var(--color-border-subtle);
-  width: 100%;
-  margin-bottom: 40px;
+.hr-accent-mini {
+  width: 50px;
+  height: 4px;
+  background-color: var(--color-accent-blue);
+  margin: 0 auto;
+  border-radius: 2px;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
+.login-form, .service-form-grid {
+  display: grid;
   gap: 25px;
 }
+
+.service-form-grid { grid-template-columns: 1fr 1fr; }
+.full-width { grid-column: 1 / span 2; }
 
 .form-group {
   display: flex;
@@ -139,28 +142,61 @@ footer {
 }
 
 .form-group label {
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 0.75rem;
   color: var(--color-text-dark);
   text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
 }
 
+.form-icon {
+  margin-right: 10px;
+  color: var(--color-accent-blue);
+}
+
+.form-group input, 
+.form-group textarea, 
+.form-group select, 
 .login-form input {
   width: 100%;
-  padding: 18px 20px;
-  background-color: var(--color-white);
-  border: 2px solid var(--color-border-subtle);
+  padding: 16px 20px;
+  background-color: #f8fafc;
+  border: 2px solid #edf2f7;
   border-radius: 14px;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--color-text-dark);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
 }
 
-.login-form input:focus {
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 16px;
+}
+
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus, .login-form input:focus {
+  background-color: var(--color-white);
   border-color: var(--color-accent-blue);
   outline: none;
-  box-shadow: 0 0 0 5px hsla(217, 91%, 60%, 0.1);
+  box-shadow: 0 0 0 4px hsla(217, 91%, 60%, 0.1);
+  transform: translateY(-1px);
 }
+
+.form-group select:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.form-group textarea { resize: none; min-height: 120px; line-height: 1.5; }
 
 .password-input-container {
   position: relative;
@@ -175,32 +211,38 @@ footer {
   border: none;
   color: var(--color-text-light);
   cursor: pointer;
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
+  font-size: 1.2rem;
 }
 
-.btn-login {
-  background-color: var(--color-accent-blue);
-  color: white;
-  border: none;
-  padding: 20px;
+.btn-login, .btn-add-car, .btn-primary-action {
+  width: 100%;
+  padding: 18px;
   border-radius: 14px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 20px;
+  border: none;
+}
+
+.btn-login, .btn-add-car {
+  background-color: var(--color-accent-blue);
+  color: white;
   box-shadow: 0 6px 20px hsla(217, 91%, 60%, 0.3);
 }
 
-.btn-login:hover {
+.btn-primary-action {
+  background-color: var(--color-primary-dark-navy);
+  color: white;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.btn-login:hover, .btn-add-car:hover, .btn-primary-action:hover {
   background-color: var(--color-accent-blue-hover);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px hsla(217, 91%, 60%, 0.4);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
 }
 
 .error-message {
@@ -208,16 +250,43 @@ footer {
   color: var(--color-status-error);
   padding: 15px;
   border-radius: 12px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-align: center;
   border: 1px solid hsla(0, 84%, 60%, 0.2);
   font-weight: 600;
 }
 
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-primary-dark-navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-bar-container {
+  width: 80%;
+  max-width: 400px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: var(--color-accent-blue);
+  animation: loading-fill 0.8s ease-in-out forwards;
+}
+
+@keyframes loading-fill { from { width: 0; } to { width: 100%; } }
+
 @media (max-width: 850px) {
-  .glass {
-    padding: 40px 20px;
-    width: 95%;
-    min-width: unset;
-  }
+  .glass, .service-card { padding: 40px 20px; width: 95%; min-width: unset; }
+  .service-form-grid { grid-template-columns: 1fr; }
+  .full-width { grid-column: auto; }
 }
