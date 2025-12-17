@@ -1,0 +1,14 @@
+<h2>Moje Garaż</h2>
+<ul>
+    {% for auto in auta %}
+        <li>
+            <!-- Link prowadzący do szczegółów konkretnego auta -->
+            <a href="{% url 'carInfo' auto.id %}">
+                {{ auto.marka }} {{ auto.model }}
+            </a> 
+        </li>
+    {% empty %}
+        <li>Nie masz jeszcze dodanych żadnych samochodów.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'addcar' %}">Dodaj nowe auto</a>
