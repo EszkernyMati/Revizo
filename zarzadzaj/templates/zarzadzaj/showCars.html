@@ -1,9 +1,0 @@
-<h2>Moje Garaż</h2>
-<ul>
-    {% for auto in auta %}
-        <li>{{ auto.marka }} {{ auto.model }} - {{ auto.rok_produkcji }}</li>
-    {% empty %}
-        <li>Nie masz jeszcze dodanych żadnych samochodów.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'addcar' %}">Dodaj nowe auto</a>

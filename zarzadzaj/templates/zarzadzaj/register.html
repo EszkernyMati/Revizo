@@ -4,4 +4,4 @@
     {{ form.as_p }}
     <button type="submit">Zarejestruj się</button>
 </form>
-<p>Masz już konto? <a href="{% url 'login' %}">Zaloguj się</a></p>
+<a href="{% url 'logout' %}" onclick="localStorage.clear();">Wyloguj i wyczyść dane lokalne</a>

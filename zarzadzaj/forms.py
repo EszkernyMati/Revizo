@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Samochod
+from .models import *
 
 class CustomUserForm(UserCreationForm):
     email = forms.EmailField(label="Adres e-mail", required=True)
@@ -31,8 +31,27 @@ class CustomUserForm(UserCreationForm):
 class CarAddingForm(forms.ModelForm):
     class Meta:
         model = Samochod
-        fields = ['marka', 'model', 'rok_produkcji', 'vin']
+        fields = ['marka', 'model', 'rok_produkcji', 'numer_rejestracyjny', 'vin']
         labels = {
             'marka': 'Marka pojazdu',
             'model': 'Model pojazdu',
+            'rok_produkcji' : 'rok produkcji',
+            'numer_rejestracyjny' : 'numer rejestracjyjny auta',
+            'vin' : 'numer vin auta'
+        }
+
+class VisitForm(forms.ModelForm):
+    class Meta:
+        model = Wizyta
+        fields = ['nazwa_serwisu', 'data', 'przebieg_wizyty', 'koszt','notatki']
+        labels={
+            'nazwa_serwisu' : 'nazwa serwisu',
+            'data' : 'data',
+            'przebieg_wizyty' : 'przebieg wizyty',
+            'koszt' : 'koszt',
+            'notatki' : 'notatki'
+
+        }
+        widgets = {
+            'data': forms.DateInput(attrs={'type': 'date'}), # Kalendarz w HTML
         }
