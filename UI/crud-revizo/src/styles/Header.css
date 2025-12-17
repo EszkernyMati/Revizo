@@ -1,0 +1,30 @@
+header {
+  background-color: var(--color-primary-dark-navy);
+  color: var(--color-white);
+  padding: 20px 40px;
+  box-shadow: var(--shadow-strong);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  border-bottom: 3px solid var(--color-accent-blue);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.6em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+header h1:hover {
+  color: var(--color-accent-blue);
+  text-shadow: 0 0 10px hsla(35, 90%, 52%, 0.5);
+}
