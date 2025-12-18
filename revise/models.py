@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.utils import timezone
+
 
 plate_validator = RegexValidator(
     regex=r'^[A-Z0-9]{2,10}$', 
@@ -24,3 +26,23 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model_name} ({self.license_plate})"
+
+class Appointment(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='appointments')
+    
+    date = models.DateField()
+    workshop_name = models.CharField(max_length=255)
+    mileage = models.PositiveIntegerField()
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    notes = models.TextField(blank=True, null=True)
+    
+    appointment_custom_id = models.CharField(max_length=50, unique=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.appointment_custom_id:
+            date_str = self.date.strftime('%Y%m%d')
+            self.appointment_custom_id = f"{date_str}-{self.car.owner.id}"
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Wizyta {self.appointment_custom_id} - {self.car.brand}"

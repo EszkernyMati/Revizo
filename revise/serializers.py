@@ -38,3 +38,18 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = [
+            'id', 'appointment_custom_id', 'car', 'date', 
+            'workshop_name', 'mileage', 'cost', 'notes'
+        ]
+        read_only_fields = ['appointment_custom_id']
+
+    def validate_car(self, value):
+        user = self.context['request'].user
+        if value.owner != user:
+            raise serializers.ValidationError("Nie możesz dodać wizyty dla auta, którego nie jesteś właścicielem.")
+        return value

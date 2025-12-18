@@ -18,4 +18,10 @@ class CarListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        
+class AppointmentListCreateView(generics.ListCreateAPIView):
+    serializer_class = AppointmentSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return Appointment.objects.filter(car__owner=self.request.user)
