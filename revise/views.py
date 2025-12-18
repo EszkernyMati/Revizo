@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
+from .models import *
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -17,3 +18,4 @@ class CarListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
