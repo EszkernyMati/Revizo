@@ -38,7 +38,7 @@ class CarListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
     
-class VisitListCreateView(generics.ListCreateAPIView):
+class AppointmentCreateView(generics.ListCreateAPIView):
     serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
 

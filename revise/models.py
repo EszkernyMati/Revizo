@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+import datetime
 
 
 plate_validator = RegexValidator(
@@ -19,7 +21,14 @@ class Car(models.Model):
     
     brand = models.CharField(max_length=100)       
     model_name = models.CharField(max_length=100) 
-    year = models.DateField()           
+    current_year = datetime.date.today().year
+
+    year = models.IntegerField(
+        validators=[
+            MinValueValidator(1900),           # Najstarsze auta
+            MaxValueValidator(current_year)    # Nie można dodać auta z przyszłości
+        ]
+    )       
     engine = models.CharField(max_length=100)       
     license_plate = models.CharField(max_length=20, unique=True, validators=[plate_validator]) 
     vin = models.CharField(max_length=17, unique=True,  validators=[vin_validator])           
@@ -33,7 +42,9 @@ class Appointment(models.Model):
     
     date = models.DateField()
     workshop_name = models.CharField(max_length=255)
-    mileage = models.PositiveIntegerField()
+    mileage = models.PositiveIntegerField(
+        validators=[MaxValueValidator(2000000)],
+    )
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
     
