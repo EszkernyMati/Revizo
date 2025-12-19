@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
 from .models import *
+from rest_framework.exceptions import PermissionDenied
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -46,6 +47,12 @@ class AppointmentCreateView(generics.ListCreateAPIView):
         return Appointment.objects.filter(car__owner=self.request.user)
 
     def perform_create(self, serializer):
+        car = serializer.validated_data.get('car')
+        
+        if car.owner != self.request.user:
+            raise PermissionDenied("Nie możesz dodać wizyty do auta, którego nie jesteś właścicielem!")
+            
+        # 3. Jeśli wszystko jest OK, zapisujemy
         serializer.save()
 
 class AppointmentListCreateView(generics.ListCreateAPIView):
