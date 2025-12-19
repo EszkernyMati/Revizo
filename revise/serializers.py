@@ -3,10 +3,27 @@ from datetime import date
 from rest_framework import serializers
 from .models import *
 
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = [
+            'id', 'appointment_custom_id', 'car', 'date', 
+            'workshop_name', 'mileage', 'cost', 'notes'
+        ]
+        read_only_fields = ['appointment_custom_id']
+
+    def validate_car(self, value):
+        user = self.context['request'].user
+        if value.owner != user:
+            raise serializers.ValidationError("Nie możesz dodać wizyty dla auta, którego nie jesteś właścicielem.")
+        return value
+
 class CarSerializer(serializers.ModelSerializer):
+    visits = AppointmentSerializer(many=True, read_only=True)
+
     class Meta:
         model = Car
-        fields = ['id', 'brand', 'model_name', 'year', 'engine', 'license_plate', 'vin']
+        fields = ['id', 'brand', 'model_name', 'year', 'engine', 'license_plate', 'vin','visits']
         read_only_fields = ['id'] 
     def validate_vin(self, value):
         if len(value) != 17:
@@ -39,17 +56,3 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
-class AppointmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Appointment
-        fields = [
-            'id', 'appointment_custom_id', 'car', 'date', 
-            'workshop_name', 'mileage', 'cost', 'notes'
-        ]
-        read_only_fields = ['appointment_custom_id']
-
-    def validate_car(self, value):
-        user = self.context['request'].user
-        if value.owner != user:
-            raise serializers.ValidationError("Nie możesz dodać wizyty dla auta, którego nie jesteś właścicielem.")
-        return value
